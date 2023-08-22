@@ -1,0 +1,49 @@
+{% extends "index.html"%} {% block menu%} {% include "menu.html"%} {% endblock%} {% block encabezado%} {% include "encabezado.html"%} {% endblock%} {% block contenido%}
+<div style="margin: auto;">
+    <div>
+        <a href="/vistaAgregarProducto/">
+            <button class="btn btn-outline-primary mb-2">Agregar</button>
+        </a>
+
+    </div>
+    <div>
+        <table class="table table-striped table-primary">
+            <thead class="text-center">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Categoria</th>
+                    <th>Imagen</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for producto in listaProductos %}
+                <tr>
+                    <td>{{producto.proCodigo}}</td>
+                    <td>{{producto.proNombre}}</td>
+                    <td>{{producto.proPrecio}}</td>
+                    <td>{{producto.proCategoria.catNombre}}</td>
+                    <td class="text-center">
+                        <img src="../media/{{producto.proFoto}}" alt="" width="50" height="50">
+                    </td>
+                    <td class="text-center">
+                        <a href="/consultarProducto/{{producto.id}}" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger" onclick="modalEliminar({{producto.id}})">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%if mensaje %}
+<script>
+    Swal.fire("Gestionar Producto", '{{mensaje}}', 'info');
+</script>
+{% endif %} {% endblock%} {% block piePagina%} {% include "piePagina.html"%} {% endblock%}
